@@ -1,6 +1,5 @@
 {
   "name": "veganscan",
-  "version": "0.1.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -8,8 +7,12 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@zxing/library": "^0.17.1",
     "core-js": "^3.6.5",
+    "lodash.throttle": "^4.1.1",
     "register-service-worker": "^1.7.1",
+    "snarkdown": "^2.0.0",
+    "tailwindcss": "^1.8.13",
     "vue": "^3.0.0"
   },
   "devDependencies": {
@@ -37,8 +40,13 @@
     ],
     "parserOptions": {
       "parser": "babel-eslint"
-    },
-    "rules": {}
+    }
+  },
+  "prettier": {
+    "bracketSpacing": true,
+    "singleQuote": true,
+    "trailingComma": "none",
+    "arrowParens": "avoid"
   },
   "browserslist": [
     "> 1%",

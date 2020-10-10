@@ -1,24 +1,3 @@
-# veganscan
+# Vegan Scan
 
-## Project setup
-```
-yarn install
-```
-
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
-
-### Compiles and minifies for production
-```
-yarn build
-```
-
-### Lints and fixes files
-```
-yarn lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+Barcode scanner to check whether a product is vegan/vegetarian. Check it out [here](https://krmax44.github.io/veganscan). Data is from [OpenFoodFacts](https://world.openfoodfacts.org/).

@@ -1,26 +1,35 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Welcome to Your Vue.js App" />
+  <CameraView @code="receivedCode" />
+  <ProductView :code="code" :panelHidden="panelHidden" />
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
+import { ref } from 'vue';
+import CameraView from './components/CameraView.vue';
+import ProductView from './components/ProductView.vue';
+import throttle from 'lodash.throttle';
 
 export default {
-  name: "App",
-  components: {
-    HelloWorld
+  name: 'App',
+  components: { CameraView, ProductView },
+  setup() {
+    const panelHidden = ref(true);
+    const code = ref(0);
+
+    function handleCode(result) {
+      panelHidden.value = false;
+      code.value = result;
+    }
+
+    const receivedCode = throttle(handleCode, 1000);
+
+    return { receivedCode, code, panelHidden };
   }
 };
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+<style lang="postcss">
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 </style>
