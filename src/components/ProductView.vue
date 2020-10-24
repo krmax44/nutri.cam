@@ -4,28 +4,34 @@
       class="flex absolute inset-0 justify-center text-center flex-col bg-white"
       v-if="error"
     >
-      <h2 class="text-3xl mb-1">Fehler</h2>
+      <h2 class="text-3xl mb-1">{{ $t('error') }}</h2>
 
-      <p>{{ error }}</p>
+      <p v-if="error instanceof errors.ProductNotFoundError">
+        {{ $t('productNotFound') }}
+      </p>
+      <p v-else v-text="error.message" />
     </div>
 
     <div
       class="flex absolute inset-0 justify-center text-center flex-col bg-white"
       v-if="loading"
     >
-      <p>Loading {{ code }}...</p>
+      <p>{{ $t('loading') }} {{ code }}...</p>
     </div>
 
     <div class="flex">
       <div class="flex-1">
         <h2 class="text-3xl mb-1">{{ title }}</h2>
         <p>
-          <span v-html="description" />
-          <a
+          <i18n-t :keypath="`productCategories.${category}`">
+            <template #label>
+              <strong>{{ label }}</strong>
+            </template> </i18n-t
+          >&nbsp;<a
             :href="`https://world.openfoodfacts.org/product/${code}`"
             target="_blank"
           >
-            Auf OpenFoodFacts einsehen...
+            {{ $t('viewOnOpenFoodFacts') }}
           </a>
         </p>
       </div>
@@ -39,6 +45,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+import { ProductNotFoundError } from '../errors';
 
 export default defineComponent({
   props: {
@@ -49,11 +56,12 @@ export default defineComponent({
     return {
       isVegan: undefined,
       title: '',
-      description: '',
-      type: '',
+      category: '',
+      label: '',
       image: '',
       loading: false,
-      error: false
+      error: false as false | Error,
+      errors: { ProductNotFoundError }
     };
   },
   watch: {
@@ -67,21 +75,20 @@ export default defineComponent({
         ).then(r => r.json());
 
         if (data.status_verbose !== 'product found') {
-          throw new Error('Wir konnten das Produkt nicht finden.');
+          throw new ProductNotFoundError();
         }
 
         const matchers: { [k: string]: string } = {
           'en:vegan': 'vegan',
-          'en:vegetarian': 'vegetarisch (nicht vegan)',
-          'en:vegetarian-status-unknown': 'nicht sicher vegetarisch',
-          'en:vegan-status-unknown': 'nicht sicher vegan',
-          'en:non-vegan': 'nicht vegan'
+          'en:vegetarian': 'vegetarisch',
+          'en:vegetarian-status-unknown': 'vegetarianUnknown',
+          'en:vegan-status-unknown': 'veganUnknown',
+          'en:non-vegan': 'notVegan'
         };
 
         const qualifiers: { [k: string]: string } = {
-          labels_tags: 'Das Produkt ist als <strong>$</strong> gekennzeichnet.',
-          ingredients_analysis_tags:
-            'Die automatische Zutatenanalyse ergab, dass das Produkt <strong>$</strong> ist.'
+          labels_tags: 'labeledAs',
+          ingredients_analysis_tags: 'analysedAs'
         };
 
         let gotResult = false;
@@ -93,23 +100,23 @@ export default defineComponent({
             const fill = matchers[matcher];
 
             if (data.product[qualifier].includes(matcher)) {
-              this.description = message.replace('$', fill);
+              this.category = message;
+              this.label = fill;
               gotResult = true;
-              this.type = fill;
               break loop;
             }
           }
         }
 
         if (!gotResult) {
-          throw new Error('Wir konnten das Produkt nicht einstufen.');
+          throw new ProductNotFoundError();
         }
 
         this.title = data.product.product_name_de;
         this.image = data.product.image_thumb_url;
+        this.error = false;
       } catch (e) {
-        console.log(e);
-        this.error = e.message;
+        this.error = e;
       } finally {
         this.loading = false;
       }

@@ -1,0 +1,32 @@
+{
+  "en": {
+    "error": "Error",
+    "productNotFound": "We weren't able to find that product.",
+    "loading": "Loading",
+    "viewOnOpenFoodFacts": "View on OpenFoodFacts...",
+    "productCategories": {
+      "vegan": "vegan",
+      "vegetarian": "vegetarian (not vegan)",
+      "vegetarianUnknown": "possibly vegetarisch",
+      "veganUnknown": "possibly vegan",
+      "notVegan": "not vegan",
+      "labeledAs": "The product is labeled as {label}.",
+      "analysedAs": "The product was categorized as {label} by an automatic ingredient analysis."
+    }
+  },
+  "de": {
+    "error": "Fehler",
+    "productNotFound": "Wir konnten das Produkt nicht finden.",
+    "loading": "Lädt",
+    "viewOnOpenFoodFacts": "Auf OpenFoodFacts ansehen...",
+    "productCategories": {
+      "vegan": "vegan",
+      "vegetarian": "vegetarisch (nicht vegan)",
+      "vegetarianUnknown": "nicht sicher vegetarisch",
+      "veganUnknown": "nicht sicher vegan",
+      "notVegan": "nicht vegan",
+      "labeledAs": "Das Produkt ist als {label} gekennzeichnet.",
+      "analysedAs": "Die automatische Zutatenanalyse ergab, dass das Produkt {label} ist."
+    }
+  }
+}

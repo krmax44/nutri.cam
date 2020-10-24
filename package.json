@@ -14,7 +14,8 @@
     "register-service-worker": "^1.7.1",
     "snarkdown": "^2.0.0",
     "tailwindcss": "^1.8.13",
-    "vue": "^3.0.0"
+    "vue": "^3.0.0",
+    "vue-i18n": "^9.0.0-beta.6"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^2.33.0",
