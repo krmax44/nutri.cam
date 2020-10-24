@@ -8,27 +8,37 @@
   </div>
 </template>
 
-<script>
-import * as ZXing from '@zxing/library';
+<script lang="ts">
+import { defineComponent } from 'vue';
+import { BrowserMultiFormatReader, NotFoundException } from '@zxing/library';
 
-export default {
+export default defineComponent({
   data() {
-    return { codeReader: undefined, camIndex: 0, cams: 0 };
+    return {
+      codeReader: new BrowserMultiFormatReader(),
+      camIndex: 0,
+      cams: 0
+    };
   },
   mounted() {
     const deviceId = localStorage.getItem('camid');
-    this.setupScanner(deviceId);
+    this.setupScanner(deviceId || undefined);
   },
   methods: {
-    setupScanner(id) {
-      this.codeReader = new ZXing.BrowserMultiFormatReader();
+    setupScanner(id?: string) {
+      this.codeReader = new BrowserMultiFormatReader();
 
       this.codeReader
         .listVideoInputDevices()
         .then(videoInputDevices => {
-          let device;
+          if (videoInputDevices.length === 0) {
+            return this.$emit('no-cameras');
+          }
+
+          let device = '';
+
           if (videoInputDevices.find(v => v.deviceId === id)) {
-            device = id;
+            device = id!;
           } else {
             device = videoInputDevices[this.camIndex].deviceId;
           }
@@ -38,13 +48,13 @@ export default {
 
           this.codeReader.decodeFromVideoDevice(
             device,
-            this.$refs.video,
+            this.$refs.video as HTMLVideoElement,
             (result, err) => {
               if (result) {
-                this.$emit('code', result.text);
+                this.$emit('code', result.getText());
               }
 
-              if (err && !(err instanceof ZXing.NotFoundException)) {
+              if (err && !(err instanceof NotFoundException)) {
                 console.error(err);
               }
             }
@@ -66,7 +76,7 @@ export default {
       this.setupScanner();
     }
   }
-};
+});
 </script>
 
 <style lang="postcss" scoped>

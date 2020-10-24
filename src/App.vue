@@ -3,20 +3,20 @@
   <ProductView :code="code" :panelHidden="panelHidden" />
 </template>
 
-<script>
-import { ref } from 'vue';
+<script lang="ts">
+import { defineComponent, ref } from 'vue';
 import CameraView from './components/CameraView.vue';
 import ProductView from './components/ProductView.vue';
 import throttle from 'lodash.throttle';
 
-export default {
+export default defineComponent({
   name: 'App',
   components: { CameraView, ProductView },
   setup() {
     const panelHidden = ref(true);
-    const code = ref(0);
+    const code = ref('0');
 
-    function handleCode(result) {
+    function handleCode(result: string) {
       panelHidden.value = false;
       code.value = result;
     }
@@ -25,7 +25,7 @@ export default {
 
     return { receivedCode, code, panelHidden };
   }
-};
+});
 </script>
 
 <style lang="postcss">

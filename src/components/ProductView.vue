@@ -37,10 +37,10 @@
   </div>
 </template>
 
-<script>
-//import snarkdown from 'snarkdown';
+<script lang="ts">
+import { defineComponent } from 'vue';
 
-export default {
+export default defineComponent({
   props: {
     panelHidden: Boolean,
     code: String
@@ -51,6 +51,7 @@ export default {
       title: '',
       description: '',
       type: '',
+      image: '',
       loading: false,
       error: false
     };
@@ -69,7 +70,7 @@ export default {
           throw new Error('Wir konnten das Produkt nicht finden.');
         }
 
-        const matchers = {
+        const matchers: { [k: string]: string } = {
           'en:vegan': 'vegan',
           'en:vegetarian': 'vegetarisch (nicht vegan)',
           'en:vegetarian-status-unknown': 'nicht sicher vegetarisch',
@@ -77,7 +78,7 @@ export default {
           'en:non-vegan': 'nicht vegan'
         };
 
-        const qualifiers = {
+        const qualifiers: { [k: string]: string } = {
           labels_tags: 'Das Produkt ist als <strong>$</strong> gekennzeichnet.',
           ingredients_analysis_tags:
             'Die automatische Zutatenanalyse ergab, dass das Produkt <strong>$</strong> ist.'
@@ -114,14 +115,14 @@ export default {
       }
     }
   }
-};
+});
 </script>
 
 <style lang="postcss" scoped>
 .panel {
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
-  @apply relative fixed inset-x-0 bottom-0 bg-white rounded-t-lg p-6 shadow-lg mx-auto;
+  @apply fixed inset-x-0 bottom-0 bg-white rounded-t-lg p-6 shadow-lg mx-auto;
 }
 
 @screen lg {
