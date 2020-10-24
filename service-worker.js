@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/veganscan/precache-manifest.2b590dc3920d34daaa558a6389ba8a1f.js"
+  "/veganscan/precache-manifest.f262dae7b3bc14f2bb3a1af5dd51981f.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "veganscan"});
