@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "965a61126bcbab258fed",
+    "revision": "481700817b6707f79b7a",
     "url": "/css/app.3cea0b84.css"
   },
   {
@@ -8,12 +8,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/img/camera-flip.824534fa.svg"
   },
   {
-    "revision": "ace90b011453222b843ca8a59b94828c",
+    "revision": "dfbdc260a8585b2e9242d0a2949bb86d",
     "url": "/index.html"
   },
   {
-    "revision": "965a61126bcbab258fed",
-    "url": "/js/app-legacy.0e54fd4c.js"
+    "revision": "481700817b6707f79b7a",
+    "url": "/js/app-legacy.ca68fdde.js"
   },
   {
     "revision": "f1db59b3061e33c134b8",
