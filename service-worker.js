@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.6e38fcf0f579941488dd22989b7c34d2.js"
+  "/nutri.cam/precache-manifest.da68fa82cd30e9905fe8bc777a93e285.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "veganscan"});
